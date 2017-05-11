@@ -12,106 +12,87 @@ namespace WindowsFormsApp1
 {
 	public partial class Form1 : Form
 	{
-		Button[] buttons;
-
+		ClassGameLogic logic;
 
 		public Form1()
 		{
 			InitializeComponent();
 
-			buttons = new Button[]
-				{
-					button1, button2, button3, button4, button5, button6,button7, button8, button9,
-				};
+			// В Tag фиксируем номер кнопки, соотвественно ячейке в списке
+			button1.Tag = 0;
+			button2.Tag = 1;
+			button3.Tag = 2;
+			button4.Tag = 3;
+			button5.Tag = 4;
+			button6.Tag = 5;
+			button7.Tag = 6;
+			button8.Tag = 7;
+			button9.Tag = 8;
+
+			logic = new ClassGameLogic();
 
 		}
 
 		private void button10_Click(object sender, EventArgs e)
 		{
-			for (int i = 0; i < buttons.Length; ++i)
-			{
-				buttons[i].Enabled = true;
-				buttons[i].Text = "";
-			}
+			logic.Start();
+			Reload(logic.GetState(), false);
 		}
 
 		private void button_Click(object sender, EventArgs e)
 		{
-			((Button)sender).Text = "X";
-			if (CheckGame())
+			Reload(logic.Step(Convert.ToInt32(((Button)sender).Tag), FieldState.Field_X), true);
+		}
+
+		/// <summary>
+		/// Обновление поля
+		/// </summary>
+		/// <param name="state">Состояние игры</param>
+		/// <param name="compStep">Делать ли ход компьютера</param>
+		private void Reload(GameState state, bool compStep)
+		{
+			var field = logic.GetField();
+			for (int i = 0; i < field.Length; ++i)
 			{
-				label1.Text = "Вы победили!";
-				FinishGame();
-				return;
+				// Ищем среди всех элементов формы элемент с нужным названием (button + (i + 1)), это будет кнопка
+				var button = ((Button)Controls.Find("button" + (i + 1), false)[0]);
+				// определяем, каким значением ее заполнять
+				button.Text = field[i] == FieldState.Field_O ? "O" : field[i] == FieldState.Field_X ? "X" : "";
 			}
-			if(CheckNotEmptyButtons())
+			switch (state)
 			{
-				CompoStep();
-				if (CheckGame())
-				{
-					label1.Text = "Вы проиграли!";
-					FinishGame();
-				}
-				else if (!CheckNotEmptyButtons())
-				{
-					label1.Text = "Ничья!";
-					FinishGame();
-				}
-			}
-			else
-			{
-				label1.Text = "Ничья!";
-				FinishGame();
+				case GameState.NotStarted:
+					label1.Text = "Игра не началась";
+					break;
+				case GameState.NoWin:
+					label1.Text = "Ничья";
+					break;
+				case GameState.PlayerOWin:
+					label1.Text = "Игрок ноликов выиграл";
+					break;
+				case GameState.PlayerXWin:
+					label1.Text = "Игрок крестиков выиграл";
+					break;
+				case GameState.InProgress:
+					label1.Text = "Игра в процессе";
+					if(compStep)
+					{
+						Reload(logic.Step(CompoStep(logic.GetField()), FieldState.Field_O), false);
+					}
+					break;
 			}
 		}
 
-		private bool CheckGame()
+		private int CompoStep(FieldState[] fields)
 		{
-			if (button1.Text == "X" && button2.Text == "X" && button3.Text == "X")
+			for (int i = 0; i < fields.Length; ++i)
 			{
-				return true;
-			}
-			if (button3.Text == "X" && button4.Text == "X" && button7.Text == "X")
-			{
-				return true;
-			}
-			if (button1.Text == "O" && button2.Text == "O" && button3.Text == "O")
-			{
-				return true;
-			}
-			return false;
-		}
-
-		private void FinishGame()
-		{
-			for (int i = 0; i < buttons.Length; ++i)
-			{
-				buttons[i].Enabled = false;
-			}
-		}
-
-		private void CompoStep()
-		{
-			for (int i = 0; i < buttons.Length; ++i)
-			{
-				if (buttons[i].Text == "")
+				if (fields[i] == FieldState.Empty)
 				{
-					buttons[i].Text = "O";
-					return;
+					return i;
 				}
 			}
-		}
-
-		private bool CheckNotEmptyButtons()
-		{
-			for (int i = 0; i < buttons.Length; ++i)
-			{
-				if(buttons[i].Text == "")
-				{
-					return true;
-				}
-			}
-			return false;
+			return -1;
 		}
 	}
 }

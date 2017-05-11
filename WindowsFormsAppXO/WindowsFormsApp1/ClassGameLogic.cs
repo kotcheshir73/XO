@@ -69,6 +69,10 @@ namespace WindowsFormsApp1
 		/// <returns>Состояние игры</returns>
 		public GameState Step(int index, FieldState field)
 		{
+			if(state != GameState.InProgress)
+			{
+				return state;
+			}
 			if (index > -1 && index < fields.Count)
 			{
 				fields[index] = field;
@@ -80,6 +84,15 @@ namespace WindowsFormsApp1
 					state = GameState.NoWin;
 				}
 			}
+			return state;
+		}
+
+		/// <summary>
+		/// Получить состояние игры
+		/// </summary>
+		/// <returns></returns>
+		public GameState GetState()
+		{
 			return state;
 		}
 
