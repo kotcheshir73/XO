@@ -16,13 +16,18 @@
 		InProgress,
 
 		/// <summary>
-		/// Игрок один выиграл
+		/// Игрок, играющий крестиками выиграл
 		/// </summary>
-		Player1Win,
+		PlayerXWin,
 
 		/// <summary>
-		/// Игрок 2 выиграл
+		/// Игрок, играющий ноликами выиграл
 		/// </summary>
-		Player2Win
+		PlayerOWin,
+
+		/// <summary>
+		/// Ничья
+		/// </summary>
+		NoWin
 	}
 }
