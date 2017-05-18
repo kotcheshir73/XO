@@ -75,6 +75,15 @@ namespace WindowsFormsApp1
 			}
 			if (index > -1 && index < fields.Count)
 			{
+                if (fields[index] != FieldState.Empty)
+                {
+                    //throw new System.Exception("Ячейка занята");
+                    throw new XOException()
+                    {
+                        col = index % 3 + 1,
+                        row = index / 3 + 1
+                    };
+                }
 				fields[index] = field;
 				// CheckGame вернет true, коглда есть победитель
 				// CheckNotEmptyButtons вернет true, коглда есть пустые поля

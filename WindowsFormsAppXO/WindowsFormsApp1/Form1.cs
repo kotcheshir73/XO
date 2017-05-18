@@ -41,7 +41,27 @@ namespace WindowsFormsApp1
 
 		private void button_Click(object sender, EventArgs e)
 		{
-			Reload(logic.Step(Convert.ToInt32(((Button)sender).Tag), FieldState.Field_X), true);
+            try
+            {
+                Reload(logic.Step(Convert.ToInt32(((Button)sender).Tag), FieldState.Field_X), true);
+                errorLabel.Text = "";
+            }
+            catch (XOException ex)
+            {
+                errorLabel.Text = String.Format("Ячейка {0} {1} занята", ex.row, ex.col);
+            }
+            catch (Exception ex)
+            {
+                errorLabel.Text = ex.Message;
+            }
+            finally
+            {
+                int x;
+
+                Int32.TryParse(label2.Text, out x);
+
+                label2.Text = (x + 1).ToString();
+            }
 		}
 
 		/// <summary>
@@ -62,8 +82,9 @@ namespace WindowsFormsApp1
 			switch (state)
 			{
 				case GameState.NotStarted:
-					label1.Text = "Игра не началась";
-					break;
+                    //label1.Text = "Игра не началась";
+                    //break;
+                    throw new Exception("Игра не началась");
 				case GameState.NoWin:
 					label1.Text = "Ничья";
 					break;
