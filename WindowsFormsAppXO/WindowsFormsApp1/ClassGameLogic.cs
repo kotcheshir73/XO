@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 
 namespace WindowsFormsApp1
 {
@@ -22,12 +23,18 @@ namespace WindowsFormsApp1
 		/// </summary>
 		private GameState state;
 
-		/// <summary>
-		/// Конструктор, в котором происходит инициализация списка полей
-		/// </summary>
-		public ClassGameLogic()
+        /// <summary>
+        /// Количество ходов
+        /// </summary>
+        public int stepCounter;
+
+        /// <summary>
+        /// Конструктор, в котором происходит инициализация списка полей
+        /// </summary>
+        public ClassGameLogic()
 		{
 			state = GameState.NotStarted;
+            stepCounter = 0;
 			fields = new List<FieldState>();
 			// заполняем список пустыми ячейками, в зависимости от размерности поля, например, 3х3 = 9 элементов
 			for (int i = 0; i < size * size; ++i)
@@ -46,6 +53,7 @@ namespace WindowsFormsApp1
 				fields[i] = FieldState.Empty;
 			}
 			state = GameState.InProgress;
+            stepCounter = 0;
 		}
 
 		/// <summary>
@@ -92,7 +100,7 @@ namespace WindowsFormsApp1
 				{
 					state = GameState.NoWin;
 				}
-			}
+			}            
 			return state;
 		}
 
@@ -177,5 +185,32 @@ namespace WindowsFormsApp1
 			}
 			return false;
 		}
-	}
+
+        /// <summary>
+        /// Сохранение статистики
+        /// </summary>
+        public void SaveStat()
+        {
+            try
+            {
+                var data = new List<Statistic>();
+                string filePath = @"c:/stats.xml";
+                data = Serializer.GetData(filePath);
+
+                data.Add(new Statistic()
+                {
+                    Date = DateTime.Now,
+                    Result = state,
+                    StepCounter = stepCounter,
+                    UserFirst = true
+                });
+
+                Serializer.SetData(filePath, data);
+            }
+            catch (Exception ex)
+            {
+                Console.WriteLine(ex.Message);
+            }
+        }
+    }
 }

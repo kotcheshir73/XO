@@ -3,7 +3,7 @@
 	/// <summary>
 	/// Возможные состояния игры
 	/// </summary>
-	enum GameState
+	public enum GameState
 	{
 		/// <summary>
 		/// Игра не началась

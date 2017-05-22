@@ -13,7 +13,6 @@ namespace WindowsFormsApp1
 	public partial class Form1 : Form
 	{
 		ClassGameLogic logic;
-
 		public Form1()
 		{
 			InitializeComponent();
@@ -28,7 +27,6 @@ namespace WindowsFormsApp1
 			button7.Tag = 6;
 			button8.Tag = 7;
 			button9.Tag = 8;
-
 			logic = new ClassGameLogic();
 
 		}
@@ -72,7 +70,7 @@ namespace WindowsFormsApp1
 		private void Reload(GameState state, bool compStep)
 		{
 			var field = logic.GetField();
-			for (int i = 0; i < field.Length; ++i)
+            for (int i = 0; i < field.Length; ++i)
 			{
 				// Ищем среди всех элементов формы элемент с нужным названием (button + (i + 1)), это будет кнопка
 				var button = ((Button)Controls.Find("button" + (i + 1), false)[0]);
@@ -87,16 +85,20 @@ namespace WindowsFormsApp1
                     throw new Exception("Игра не началась");
 				case GameState.NoWin:
 					label1.Text = "Ничья";
+                    logic.SaveStat();
 					break;
 				case GameState.PlayerOWin:
 					label1.Text = "Игрок ноликов выиграл";
-					break;
+                    logic.SaveStat();
+                    break;
 				case GameState.PlayerXWin:
-					label1.Text = "Игрок крестиков выиграл";
-					break;
+                    label1.Text = "Игрок крестиков выиграл";
+                    logic.SaveStat();
+                    break;
 				case GameState.InProgress:
 					label1.Text = "Игра в процессе";
-					if(compStep)
+                    logic.stepCounter++;
+                    if (compStep)
 					{
 						Reload(logic.Step(CompoStep(logic.GetField()), FieldState.Field_O), false);
 					}
@@ -115,5 +117,16 @@ namespace WindowsFormsApp1
 			}
 			return -1;
 		}
-	}
+
+        private void button11_Click(object sender, EventArgs e)
+        {
+            var data = Serializer.GetData(@"c:/stats.xml");
+
+            var statsForm = new statsForm();
+
+            statsForm.dataGridView1.DataSource = data;
+
+            statsForm.Show();
+        }
+    }
 }
