@@ -10,10 +10,10 @@ using System.Windows.Forms;
 
 namespace WindowsFormsApp1
 {
-	public partial class Form1 : Form
+	public partial class FormMain : Form
 	{
 		ClassGameLogic logic;
-		public Form1()
+		public FormMain()
 		{
 			InitializeComponent();
 
@@ -31,7 +31,7 @@ namespace WindowsFormsApp1
 
 		}
 
-		private void button10_Click(object sender, EventArgs e)
+		private void buttonStart_Click(object sender, EventArgs e)
 		{
 			logic.Start();
 			Reload(logic.GetState(), false);
@@ -54,11 +54,9 @@ namespace WindowsFormsApp1
             }
             finally
             {
-                int x;
+                Int32.TryParse(labelSteps.Text, out int x);
 
-                Int32.TryParse(label2.Text, out x);
-
-                label2.Text = (x + 1).ToString();
+                labelSteps.Text = (x + 1).ToString();
             }
 		}
 
@@ -84,19 +82,19 @@ namespace WindowsFormsApp1
                     //break;
                     throw new Exception("Игра не началась");
 				case GameState.NoWin:
-					label1.Text = "Ничья";
+					labelStatus.Text = "Ничья";
                     logic.SaveStat();
 					break;
 				case GameState.PlayerOWin:
-					label1.Text = "Игрок ноликов выиграл";
+					labelStatus.Text = "Игрок ноликов выиграл";
                     logic.SaveStat();
                     break;
 				case GameState.PlayerXWin:
-                    label1.Text = "Игрок крестиков выиграл";
+                    labelStatus.Text = "Игрок крестиков выиграл";
                     logic.SaveStat();
                     break;
 				case GameState.InProgress:
-					label1.Text = "Игра в процессе";
+					labelStatus.Text = "Игра в процессе";
                     logic.stepCounter++;
                     if (compStep)
 					{
@@ -118,15 +116,15 @@ namespace WindowsFormsApp1
 			return -1;
 		}
 
-        private void button11_Click(object sender, EventArgs e)
+        private void buttonGetStat_Click(object sender, EventArgs e)
         {
             var data = Serializer.GetData(@"c:/stats.xml");
 
-            var statsForm = new statsForm();
+            var statisticForm = new StatisticForm();
 
-            statsForm.dataGridView1.DataSource = data;
+            statisticForm.dataGridView.DataSource = data;
 
-            statsForm.Show();
+            statisticForm.Show();
         }
     }
 }

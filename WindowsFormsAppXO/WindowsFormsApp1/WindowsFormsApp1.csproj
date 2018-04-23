@@ -45,28 +45,28 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="FieldState.cs" />
-    <Compile Include="ClassGameLogic.cs" />
-    <Compile Include="Form1.cs">
+    <Compile Include="Models\FieldState.cs" />
+    <Compile Include="Services\ClassGameLogic.cs" />
+    <Compile Include="FormMain.cs">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="Form1.Designer.cs">
-      <DependentUpon>Form1.cs</DependentUpon>
+    <Compile Include="FormMain.Designer.cs">
+      <DependentUpon>FormMain.cs</DependentUpon>
     </Compile>
-    <Compile Include="GameState.cs" />
+    <Compile Include="Models\GameState.cs" />
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="Serializer.cs" />
-    <Compile Include="Statictic.cs" />
+    <Compile Include="Services\Serializer.cs" />
+    <Compile Include="Models\Statictic.cs" />
     <Compile Include="statsForm.cs">
       <SubType>Form</SubType>
     </Compile>
     <Compile Include="statsForm.Designer.cs">
       <DependentUpon>statsForm.cs</DependentUpon>
     </Compile>
-    <Compile Include="XOException.cs" />
-    <EmbeddedResource Include="Form1.resx">
-      <DependentUpon>Form1.cs</DependentUpon>
+    <Compile Include="Models\XOException.cs" />
+    <EmbeddedResource Include="FormMain.resx">
+      <DependentUpon>FormMain.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Properties\Resources.resx">
       <Generator>ResXFileCodeGenerator</Generator>

@@ -1,6 +1,6 @@
 ﻿namespace WindowsFormsApp1
 {
-	partial class Form1
+	partial class FormMain
 	{
 		/// <summary>
 		/// Обязательная переменная конструктора.
@@ -37,11 +37,11 @@
             this.button7 = new System.Windows.Forms.Button();
             this.button8 = new System.Windows.Forms.Button();
             this.button9 = new System.Windows.Forms.Button();
-            this.button10 = new System.Windows.Forms.Button();
-            this.label1 = new System.Windows.Forms.Label();
+            this.buttonStart = new System.Windows.Forms.Button();
+            this.labelStatus = new System.Windows.Forms.Label();
             this.errorLabel = new System.Windows.Forms.Label();
-            this.label2 = new System.Windows.Forms.Label();
-            this.button11 = new System.Windows.Forms.Button();
+            this.labelSteps = new System.Windows.Forms.Label();
+            this.buttonGetStat = new System.Windows.Forms.Button();
             this.SuspendLayout();
             // 
             // button1
@@ -125,24 +125,24 @@
             this.button9.UseVisualStyleBackColor = true;
             this.button9.Click += new System.EventHandler(this.button_Click);
             // 
-            // button10
+            // buttonStart
             // 
-            this.button10.Location = new System.Drawing.Point(256, 26);
-            this.button10.Name = "button10";
-            this.button10.Size = new System.Drawing.Size(75, 23);
-            this.button10.TabIndex = 9;
-            this.button10.Text = "Start";
-            this.button10.UseVisualStyleBackColor = true;
-            this.button10.Click += new System.EventHandler(this.button10_Click);
+            this.buttonStart.Location = new System.Drawing.Point(256, 26);
+            this.buttonStart.Name = "buttonStart";
+            this.buttonStart.Size = new System.Drawing.Size(75, 23);
+            this.buttonStart.TabIndex = 9;
+            this.buttonStart.Text = "Start";
+            this.buttonStart.UseVisualStyleBackColor = true;
+            this.buttonStart.Click += new System.EventHandler(this.buttonStart_Click);
             // 
-            // label1
+            // labelStatus
             // 
-            this.label1.AutoSize = true;
-            this.label1.Location = new System.Drawing.Point(219, 124);
-            this.label1.Name = "label1";
-            this.label1.Size = new System.Drawing.Size(35, 13);
-            this.label1.TabIndex = 10;
-            this.label1.Text = "label1";
+            this.labelStatus.AutoSize = true;
+            this.labelStatus.Location = new System.Drawing.Point(219, 124);
+            this.labelStatus.Name = "labelStatus";
+            this.labelStatus.Size = new System.Drawing.Size(69, 13);
+            this.labelStatus.TabIndex = 10;
+            this.labelStatus.Text = "Статус игры";
             // 
             // errorLabel
             // 
@@ -150,39 +150,39 @@
             this.errorLabel.ForeColor = System.Drawing.Color.Maroon;
             this.errorLabel.Location = new System.Drawing.Point(219, 161);
             this.errorLabel.Name = "errorLabel";
-            this.errorLabel.Size = new System.Drawing.Size(35, 13);
+            this.errorLabel.Size = new System.Drawing.Size(47, 13);
             this.errorLabel.TabIndex = 11;
-            this.errorLabel.Text = "label2";
+            this.errorLabel.Text = "Ошибка";
             // 
-            // label2
+            // labelSteps
             // 
-            this.label2.AutoSize = true;
-            this.label2.Location = new System.Drawing.Point(218, 68);
-            this.label2.Name = "label2";
-            this.label2.Size = new System.Drawing.Size(13, 13);
-            this.label2.TabIndex = 12;
-            this.label2.Text = "0";
+            this.labelSteps.AutoSize = true;
+            this.labelSteps.Location = new System.Drawing.Point(218, 68);
+            this.labelSteps.Name = "labelSteps";
+            this.labelSteps.Size = new System.Drawing.Size(13, 13);
+            this.labelSteps.TabIndex = 12;
+            this.labelSteps.Text = "0";
             // 
-            // button11
+            // buttonGetStat
             // 
-            this.button11.Location = new System.Drawing.Point(258, 57);
-            this.button11.Name = "button11";
-            this.button11.Size = new System.Drawing.Size(75, 23);
-            this.button11.TabIndex = 13;
-            this.button11.Text = "Get Stat";
-            this.button11.UseVisualStyleBackColor = true;
-            this.button11.Click += new System.EventHandler(this.button11_Click);
+            this.buttonGetStat.Location = new System.Drawing.Point(258, 57);
+            this.buttonGetStat.Name = "buttonGetStat";
+            this.buttonGetStat.Size = new System.Drawing.Size(75, 23);
+            this.buttonGetStat.TabIndex = 13;
+            this.buttonGetStat.Text = "Get Stat";
+            this.buttonGetStat.UseVisualStyleBackColor = true;
+            this.buttonGetStat.Click += new System.EventHandler(this.buttonGetStat_Click);
             // 
-            // Form1
+            // FormMain
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(383, 196);
-            this.Controls.Add(this.button11);
-            this.Controls.Add(this.label2);
+            this.Controls.Add(this.buttonGetStat);
+            this.Controls.Add(this.labelSteps);
             this.Controls.Add(this.errorLabel);
-            this.Controls.Add(this.label1);
-            this.Controls.Add(this.button10);
+            this.Controls.Add(this.labelStatus);
+            this.Controls.Add(this.buttonStart);
             this.Controls.Add(this.button7);
             this.Controls.Add(this.button8);
             this.Controls.Add(this.button9);
@@ -192,8 +192,8 @@
             this.Controls.Add(this.button3);
             this.Controls.Add(this.button2);
             this.Controls.Add(this.button1);
-            this.Name = "Form1";
-            this.Text = "Form1";
+            this.Name = "FormMain";
+            this.Text = "Крестики-Нолики";
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -210,11 +210,11 @@
 		private System.Windows.Forms.Button button7;
 		private System.Windows.Forms.Button button8;
 		private System.Windows.Forms.Button button9;
-		private System.Windows.Forms.Button button10;
-		private System.Windows.Forms.Label label1;
+		private System.Windows.Forms.Button buttonStart;
+		private System.Windows.Forms.Label labelStatus;
         private System.Windows.Forms.Label errorLabel;
-        private System.Windows.Forms.Label label2;
-        private System.Windows.Forms.Button button11;
+        private System.Windows.Forms.Label labelSteps;
+        private System.Windows.Forms.Button buttonGetStat;
     }
 }
 
