@@ -45,6 +45,7 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Interfaces\IGameLogic.cs" />
     <Compile Include="Models\FieldState.cs" />
     <Compile Include="Services\ClassGameLogic.cs" />
     <Compile Include="FormMain.cs">

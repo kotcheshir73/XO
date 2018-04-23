@@ -1,13 +1,14 @@
 ﻿using System;
 using System.Collections.Generic;
+using WindowsFormsApp1.Interfaces;
 
 namespace WindowsFormsApp1
 {
 	/// <summary>
 	/// Класс, храняищий информацию по полю
 	/// </summary>
-	class ClassGameLogic
-	{
+	class ClassGameLogic : IGameLogic
+    {
 		/// <summary>
 		/// Поле
 		/// </summary>
@@ -23,10 +24,11 @@ namespace WindowsFormsApp1
 		/// </summary>
 		private GameState state;
 
+        public int StepCounter { get; private set; }
+
         /// <summary>
         /// Количество ходов
         /// </summary>
-        public int stepCounter;
 
         /// <summary>
         /// Конструктор, в котором происходит инициализация списка полей
@@ -34,7 +36,7 @@ namespace WindowsFormsApp1
         public ClassGameLogic()
 		{
 			state = GameState.NotStarted;
-            stepCounter = 0;
+            StepCounter = 0;
 			fields = new List<FieldState>();
 			// заполняем список пустыми ячейками, в зависимости от размерности поля, например, 3х3 = 9 элементов
 			for (int i = 0; i < size * size; ++i)
@@ -53,7 +55,7 @@ namespace WindowsFormsApp1
 				fields[i] = FieldState.Empty;
 			}
 			state = GameState.InProgress;
-            stepCounter = 0;
+            StepCounter = 0;
 		}
 
 		/// <summary>
@@ -111,14 +113,33 @@ namespace WindowsFormsApp1
 		public GameState GetState()
 		{
 			return state;
-		}
+        }
 
-		/// <summary>
-		/// Простая логика проверки заполненности полей одинаковыми не пустыми значениями для поля 3х3
-		/// </summary>
-		/// <returns>true - есть победитель</returns>
-		private bool CheckGame()
+        /// <summary>
+        /// Ход компьютера
+        /// </summary>
+        /// <returns></returns>
+        public GameState CompStep()
+        {
+            for (int i = 0; i < fields.Count; ++i)
+            {
+                if (fields[i] == FieldState.Empty)
+                {
+                    fields[i] = FieldState.Field_O;
+                    break;
+                }
+            }
+            CheckGame();
+            return state;
+        }
+
+        /// <summary>
+        /// Простая логика проверки заполненности полей одинаковыми не пустыми значениями для поля 3х3
+        /// </summary>
+        /// <returns>true - есть победитель</returns>
+        private bool CheckGame()
 		{
+            StepCounter++;
 			// первая строка заполнена идентичными не пустыми значениями
 			if (fields[0] == fields[1] && fields[1] == fields[2] && fields[0] != FieldState.Empty)
 			{
@@ -168,13 +189,13 @@ namespace WindowsFormsApp1
 				return true;
 			}
 			return false;
-		}
+        }
 
-		/// <summary>
-		/// Проверка, что есть еще пустые поля
-		/// </summary>
-		/// <returns>true - есть пустые поля</returns>
-		private bool CheckNotEmptyButtons()
+        /// <summary>
+        /// Проверка, что есть еще пустые поля
+        /// </summary>
+        /// <returns>true - есть пустые поля</returns>
+        private bool CheckNotEmptyButtons()
 		{
 			for (int i = 0; i < fields.Count; ++i)
 			{
@@ -201,7 +222,7 @@ namespace WindowsFormsApp1
                 {
                     Date = DateTime.Now,
                     Result = state,
-                    StepCounter = stepCounter,
+                    StepCounter = StepCounter,
                     UserFirst = true
                 });
 

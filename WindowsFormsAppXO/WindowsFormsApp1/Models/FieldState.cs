@@ -3,7 +3,7 @@
 	/// <summary>
 	/// Зададим перечисление, характеризующие состояние поля
 	/// </summary>
-	enum FieldState
+	public enum FieldState
 	{
 		/// <summary>
 		/// Поле пустое

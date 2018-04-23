@@ -1,18 +1,12 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.ComponentModel;
-using System.Data;
-using System.Drawing;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using System.Windows.Forms;
+using WindowsFormsApp1.Interfaces;
 
 namespace WindowsFormsApp1
 {
-	public partial class FormMain : Form
+    public partial class FormMain : Form
 	{
-		ClassGameLogic logic;
+        IGameLogic logic;
 		public FormMain()
 		{
 			InitializeComponent();
@@ -56,7 +50,7 @@ namespace WindowsFormsApp1
             {
                 Int32.TryParse(labelSteps.Text, out int x);
 
-                labelSteps.Text = (x + 1).ToString();
+                labelSteps.Text = logic.StepCounter.ToString();
             }
 		}
 
@@ -78,42 +72,29 @@ namespace WindowsFormsApp1
 			switch (state)
 			{
 				case GameState.NotStarted:
-                    //label1.Text = "Игра не началась";
+                    //labelStatus.Text = "Игра не началась";
                     //break;
                     throw new Exception("Игра не началась");
 				case GameState.NoWin:
 					labelStatus.Text = "Ничья";
-                    logic.SaveStat();
+                    //logic.SaveStat();
 					break;
 				case GameState.PlayerOWin:
 					labelStatus.Text = "Игрок ноликов выиграл";
-                    logic.SaveStat();
+                   // logic.SaveStat();
                     break;
 				case GameState.PlayerXWin:
                     labelStatus.Text = "Игрок крестиков выиграл";
-                    logic.SaveStat();
+                   // logic.SaveStat();
                     break;
 				case GameState.InProgress:
 					labelStatus.Text = "Игра в процессе";
-                    logic.stepCounter++;
                     if (compStep)
 					{
-						Reload(logic.Step(CompoStep(logic.GetField()), FieldState.Field_O), false);
+						Reload(logic.CompStep(), false);
 					}
 					break;
 			}
-		}
-
-		private int CompoStep(FieldState[] fields)
-		{
-			for (int i = 0; i < fields.Length; ++i)
-			{
-				if (fields[i] == FieldState.Empty)
-				{
-					return i;
-				}
-			}
-			return -1;
 		}
 
         private void buttonGetStat_Click(object sender, EventArgs e)
